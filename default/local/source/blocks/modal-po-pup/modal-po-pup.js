@@ -51,4 +51,3 @@ ModalPopUp();function ModalPopUp() {
 	})
 }
 ModalPopUp();
-

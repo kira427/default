@@ -7,15 +7,35 @@
       "height": 480
     },
     {
+      "label": "phone",
+      "width": 480,
+      "height": 500
+    },
+    {
+      "label": "phone",
+      "width": 640,
+      "height": 600
+    },
+    {
+      "label": "phone",
+      "width": 800,
+      "height": 650
+    },
+    {
       "label": "tablet",
       "width": 1024,
       "height": 768
     },
-    {
-      "label": "desctop",
-      "width": 1440,
+	 {
+      "label": "desktop",
+      "width": 1327,
       "height": 900
-    }	 
+    },
+	 {
+      "label": "desktop",
+      "width": 1600,
+      "height": 900
+    }
   ],
   "onBeforeScript": "puppet/onBefore.js",
   "onReadyScript": "puppet/onReady.js",

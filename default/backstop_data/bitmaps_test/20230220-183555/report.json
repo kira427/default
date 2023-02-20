@@ -1,0 +1,81 @@
+{
+  "testSuite": "BackstopJS",
+  "tests": [
+    {
+      "pair": {
+        "reference": "..\\bitmaps_reference\\backstop_default_default_Homepage_0__0_phone.png",
+        "test": "..\\bitmaps_test\\20230220-183555\\backstop_default_default_Homepage_0__0_phone.png",
+        "selector": "",
+        "fileName": "backstop_default_default_Homepage_0__0_phone.png",
+        "label": "default Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:3000/",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "phone",
+        "engineErrorMsg": "net::ERR_CONNECTION_REFUSED at http://localhost:3000/",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "..\\bitmaps_reference\\backstop_default_default_Homepage_0__1_tablet.png",
+        "test": "..\\bitmaps_test\\20230220-183555\\backstop_default_default_Homepage_0__1_tablet.png",
+        "selector": "",
+        "fileName": "backstop_default_default_Homepage_0__1_tablet.png",
+        "label": "default Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:3000/",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "tablet",
+        "engineErrorMsg": "net::ERR_CONNECTION_REFUSED at http://localhost:3000/",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    },
+    {
+      "pair": {
+        "reference": "..\\bitmaps_reference\\backstop_default_default_Homepage_0__2_desktop.png",
+        "test": "..\\bitmaps_test\\20230220-183555\\backstop_default_default_Homepage_0__2_desktop.png",
+        "selector": "",
+        "fileName": "backstop_default_default_Homepage_0__2_desktop.png",
+        "label": "default Homepage",
+        "requireSameDimensions": true,
+        "misMatchThreshold": 0.1,
+        "url": "http://localhost:3000/",
+        "referenceUrl": "",
+        "expect": 0,
+        "viewportLabel": "desktop",
+        "engineErrorMsg": "net::ERR_CONNECTION_REFUSED at http://localhost:3000/",
+        "diff": {
+          "isSameDimensions": true,
+          "dimensionDifference": {
+            "width": 0,
+            "height": 0
+          },
+          "misMatchPercentage": "0.00"
+        }
+      },
+      "status": "pass"
+    }
+  ],
+  "id": "backstop_default"
+}
