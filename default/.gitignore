@@ -1,0 +1,8 @@
+/node_modules
+/local/build/js/
+/local/build/css/
+/local/build/scss/
+/local/build/*.html
+/local/package-lock.json
+/local/source/js/exclude
+*.xml

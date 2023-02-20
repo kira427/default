@@ -1,0 +1,285 @@
+@mixin touch {
+	@media (any-hover: none) {
+		@content;
+	}
+}
+
+@mixin no-touch {
+	@media (any-hover: hover), (-ms-high-contrast: active), (-ms-high-contrast: none) {
+		@content;
+	}
+}
+
+//основные параметры псевдо элементов (контент, дисплэй, позиционирование)
+@mixin pseudo($content: "", $display: block, $pos: absolute) {
+	content: $content;
+	display: $display;
+	position: $pos;
+}
+
+//псевдо блок ::before (ширина, высота, контент, дисплэй, позиционирование)
+@mixin pseudo-before($width: false, $height: false, $content: '', $display: block, $pos: absolute) {
+	&::before {
+		@if ($width) {
+			width: $width;
+		}
+		@if ($height) {
+			height: $height;
+		}
+		content: $content;
+		display: $display;
+		position: $pos;
+		box-sizing: border-box;
+	}
+}
+
+//псевдо блок ::after (ширина, высота, контент, дисплэй, позиционирование)
+@mixin pseudo-after($width: false, $height: false, $content: '', $display: block, $pos: absolute) {
+	&::after {
+		@if ($width) {
+			width: $width;
+		}
+		@if ($height) {
+			height: $height;
+		}
+		content: $content;
+		display: $display;
+		position: $pos;
+		box-sizing: border-box;
+	}
+}
+
+//псевдо распорка для флоатных блоков
+@mixin clearfix() {
+	&::after {
+		display: table;
+		content: "";
+		clear: both;
+	}
+}
+
+//абсолютный центровщик горизонтальный (позиционирование)
+@mixin center-x($position: absolute) {
+	position: $position;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+//абсолютный центровщик вертикальный (позиционирование)
+@mixin center-y($position: absolute) {
+	position: $position;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+//абсолютный центровщик горизонтальный и вертикальный (позиционирование, горизонтально, вертикально)
+@mixin center-x-y($position: absolute) {
+	position: $position;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+//абсолютный центровщик горизонтальный на margin(половина ширины)
+@mixin center-x-margin($margin-left: 10px) {
+	position: absolute;
+	left: 50%;
+	margin-left: -$margin-left;
+}
+
+//абсолютный центровщик вертикальный на margin(половина высоты)
+@mixin center-y-margin($margin-top: 10px) {
+	position: absolute;
+	top: 50%;
+	margin-top: -$margin-top;
+}
+
+//*******************************************************************************************************************
+
+@function strip-unit($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+	@return $number;
+}
+
+// функция вычисление относительного размера
+@function calcResponsiveSize($f-min, $f-max, $w-min:$md-min, $w-max:$lg-max, $units: px) {
+	$f-min: strip-unit($f-min);
+	$f-max: strip-unit($f-max);
+	$w-min: strip-unit($w-min);
+	$w-max: strip-unit($w-max);
+	$k: ($f-max - $f-min)/($w-max - $w-min);
+	$b: $f-min - $k * $w-min;
+	$b: $b + $units;
+	@return calc(#{$k} * 100vw + #{$b});
+}
+
+//скрытый текст (для семантики), доступный для читалок
+@mixin text-invisible() {
+	position: absolute !important;
+	width: 1px !important;
+	height: 1px !important;
+	margin: -1px !important;
+	padding: 0 !important;
+	overflow: hidden !important;
+	white-space: nowrap !important;
+	border: 0 !important;
+	clip: rect(0, 0, 0, 0) !important;
+}
+
+// обрезка однострочного текста с многоточием
+@mixin text-truncate($max-width: false) {
+	@if ($max-width) {
+		max-width: $max-width;
+	}
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+// запрет выделения текста
+@mixin text-unselectable() {
+	-webkit-touch-callout: none;
+	user-select: none;
+}
+
+//*******************************************************************************************************************
+
+//горизонтальная линия по краям текста (цвет, толщина)
+@mixin text-line($color: currentColor, $weight: 1px) {
+	background: linear-gradient(to right, $color, $color) 0 50%/100% $weight no-repeat;
+}
+
+// имитация пунктирной линии (толщина линии, длинна линии, цвет)
+@mixin dashed($color: currentColor, $weight: 1px, $width: 3px, $space: $width) {
+	background-image: linear-gradient(to right, $color $width, transparent $width, transparent);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	background-size: $width + $space $weight;
+}
+
+// имитация точек (толщина, цвет)
+@mixin dotted($color: currentColor, $weight: 2px, $space: $weight * 2) {
+	background-image: linear-gradient(to right, $color $weight, transparent $weight, transparent);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	background-size: $weight + $space $weight;
+}
+
+//отцентрированная картинка большей ширины чем ее контейнер
+@mixin img-full-width-center() {
+	overflow: hidden;
+	position: relative;
+	img {
+		width: auto;
+		min-width: 100%;
+		max-width: 300%;
+		min-height: 100%;
+		@include center-x-y();
+	}
+}
+
+//*******************************************************************************************************************
+
+//задержка при скрытии выпадающего меню (состояние видимости меню)
+@mixin drop-menu-delay($show: false) {
+	@if $show {
+		visibility: visible;
+		opacity: 1; /* Показываем подменю при ховере */
+	} @else {
+		visibility: hidden;
+		opacity: 0; /* По умолчанию скрываем подменю */
+		transition: opacity, visibility 0.3s ease 0.15s; /* анимация 0.3 сек. и задержка в 0.15 сек. */
+	}
+}
+
+//крестик для закрытия попапов (ширина блока, высота блока, длинна палочек, толщина палочек, цвет палочек)
+@mixin icon-close($size: 26px, $weight: 3px, $color: currentColor) {
+	cursor: pointer;
+	@include pseudo-before($size, $weight);
+	@include pseudo-after($size, $weight);
+	&::before,
+	&::after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		background: $color;
+		transform: translateX(-50%) translateY(-50%) rotate(45deg);
+	}
+	&::after {
+		transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+	}
+}
+
+//Значек раскрывающегося меню (цвет полос, ширина значка, высота значка, толщина полос, количество полос, цвет полос при наведении )
+@mixin icon-hamburger( $color: black, $width: 20px, $height: 16px, $weight: 2px, $bars: 3, $color-hover: red ) {
+	$shadow: ();
+	$hover-shadow: ();
+	$spacing: ($height - ($weight * $bars)) / ($bars - 1);
+	@if unit($spacing) == 'px' {
+		$spacing: floor($spacing);
+	}
+	@for $i from 2 through $bars {
+		$offset: ($weight + $spacing) * ($i - 1);
+		$shadow: append($shadow, 0 $offset 0 $color, comma);
+	}
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	width: $width;
+	height: $height;
+	cursor: pointer;
+	&::after {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		width: 100%;
+		height: $weight;
+		background: $color;
+		box-shadow: $shadow;
+		content: '';
+	}
+	@if $color-hover {
+		@for $i from 2 through $bars {
+			$offset: ($weight + $spacing) * ($i - 1);
+			$hover-shadow: append($hover-shadow, 0 $offset 0 $color-hover, comma);
+		}
+		&:hover::after {
+			background: $color-hover;
+			box-shadow: $hover-shadow;
+		}
+	}
+}
+
+//Треугольник (цвет, направление, размер, позиционирование, закругление краев)
+@mixin triangle($color, $direction, $size: 6px, $position: absolute, $round: false) {
+	@include pseudo($pos: $position);
+	width: 0;
+	height: 0;
+	@if $round {
+		border-radius: $round;
+	}
+	@if $direction == bottom {
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+		border-top: $size solid $color;
+		margin-top: 0 - round( $size / 2.5 );
+	} @else if $direction == top {
+		border-left: $size solid transparent;
+		border-right: $size solid transparent;
+		border-bottom: $size solid $color;
+		margin-bottom: 0 - round( $size / 2.5 );
+	} @else if $direction == right {
+		border-top: $size solid transparent;
+		border-bottom: $size solid transparent;
+		border-left: $size solid $color;
+		margin-right: -$size;
+	} @else if $direction == left {
+		border-top: $size solid transparent;
+		border-bottom: $size solid transparent;
+		border-right: $size solid $color;
+		margin-left: -$size;
+	}
+}

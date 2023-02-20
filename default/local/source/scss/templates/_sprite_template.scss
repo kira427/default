@@ -1,0 +1,12 @@
+.symbol {
+  display: inline-block;
+  fill: currentColor;
+}
+
+{{#shapes}}
+.symbol-{{base}} {
+  width: {{width.inner}}px;
+  height: {{height.inner}}px;
+}
+
+{{/shapes}}

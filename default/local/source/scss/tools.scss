@@ -1,0 +1,43 @@
+.flc:first-child,
+.fc:first-child,
+.fcc,
+.fcc.fcc {
+	margin-top: 0;
+}
+
+.flc:last-child,
+.lc:last-child,
+.lcc,
+.lcc.lcc {
+	margin-bottom: 0;
+}
+
+.clearfix::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+@media (min-width: $screen-lg-min) {
+	.hidden-lg.hidden-lg {
+		display: none;
+	}
+}
+
+@media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+	.hidden-md.hidden-md {
+		display: none;
+	}
+}
+
+@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+	.hidden-sm.hidden-sm {
+		display: none;
+	}
+}
+
+@media (max-width: $screen-xs-max) {
+	.hidden-xs.hidden-xs {
+		display: none;
+	}
+}
