@@ -5,5 +5,4 @@
 /local/build/*.html
 /local/package-lock.json
 /local/source/js/exclude
-/local/source/blocks/pages
 *.xml
